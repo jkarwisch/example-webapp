@@ -74,6 +74,7 @@ pipeline {
                   sh '''
                      ssh jkarwisch@172.16.36.144 ls
                   '''
+                }
             }
         }
 
