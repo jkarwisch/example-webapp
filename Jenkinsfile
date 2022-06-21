@@ -69,17 +69,11 @@ pipeline {
                 echo 'Deploying release to production'
                 script {
                     productionImage.push("deploy")
-                    node('centos7') {
-                      // some block
-                      sh """
-                         ls
-                      """
-                    }
-                    //sh """
-                       //aws ec2 reboot-instances --region us-east-1 --instance-ids i-0e438e2bf64427c9d
-                       
-                    //"""
                 }
+                sshagent(credentials: ['jkarwisch']) {
+                  sh '''
+                     ssh jkarwisch@172.16.36.144 ls
+                  '''
             }
         }
 
