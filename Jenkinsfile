@@ -12,6 +12,8 @@ pipeline {
                 script {
                     GIT_COMMIT_HASH = sh (script: "git log -n 1 --pretty=format:'%H'", returnStdout: true)
                     ACCOUNT_REGISTRY_PREFIX = "localhost:5000"
+                    ACCOUNT_REGISTRY_PREFIX_IP = "172.16.36.146:5000"
+                    PRODUCTION_HOST = "centos7"
                 }
             }
         }
@@ -67,9 +69,16 @@ pipeline {
                 echo 'Deploying release to production'
                 script {
                     productionImage.push("deploy")
-                    sh """
-                       aws ec2 reboot-instances --region us-east-1 --instance-ids i-0e438e2bf64427c9d
-                    """
+                    node('centos7') {
+                      // some block
+                      sh """
+                         ls
+                      """
+                    }
+                    //sh """
+                       //aws ec2 reboot-instances --region us-east-1 --instance-ids i-0e438e2bf64427c9d
+                       
+                    //"""
                 }
             }
         }
