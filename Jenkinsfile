@@ -67,9 +67,6 @@ pipeline {
             }
             steps {
                 echo 'Deploying release to production'
-                script {
-                    productionImage.push("deploy")
-                }
                 sshagent(credentials: ['jkarwisch']) {
                   sh '''
                      ssh jkarwisch@172.16.36.144 ls
